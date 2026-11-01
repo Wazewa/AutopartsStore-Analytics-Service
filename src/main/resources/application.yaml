@@ -1,0 +1,23 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: AutopartsStore-analytics-service
+  kafka:
+    listener:
+      type: batch
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:29092}
+    consumer:
+      group-id: client-events-consumer
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      max-poll-records: 100
+  datasource:
+    url: jdbc:clickhouse://localhost:8123/default
+    username: default
+    password: password123
+    driver-class-name: com.clickhouse.jdbc.ClickHouseDriver
+
+KAFKA_BOOTSTRAP_SERVERS: host.docker.internal:29092
